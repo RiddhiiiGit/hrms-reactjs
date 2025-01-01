@@ -1,15 +1,17 @@
 import { Box, Button, Container, TextField, Typography } from "@mui/material";
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const SignUp = () => {
+  const location = useLocation();
   const navigate = useNavigate();
-  const [email, setEmail] = useState("");
+  const [email, setEmail] = useState(location.state?.email || "");
+
   const handleSubmit = (event) => {
     event.preventDefault();
   };
   const handleClick = () => {
-    navigate("/userDetails");
+    navigate("/userDetails", { state: { email } });
   };
   return (
     <>

@@ -1,16 +1,70 @@
 import { Box, Button, Container, TextField, Typography } from "@mui/material";
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
+import { useForm } from "react-hook-form";
+import { useDispatch } from "react-redux";
+import { toast } from "react-toastify";
+import { UserCreateApi } from "../../apis/user";
+import { showSnackbar } from "../../features/snackbar/snackbarSlice";
 
 const index = () => {
   const navigate = useNavigate();
-  const [userName, setUserName] = useState("");
-  const [subdomain, setSubDomain] = useState("");
-  const [password, setPassword] = useState("");
-  const [name, setName] = useState("");
-  const handleNavigate = () => {
-    navigate("/home");
+  const location = useLocation();
+  const dispatch = useDispatch();
+
+  const {
+    register,
+    handleSubmit,
+    setValue,
+    formState: { errors },
+  } = useForm();
+
+  const [email] = useState(location.state?.email || null);
+  const onSubmit = async (data) => {
+    try {
+      const formDataWithEmail = { ...data, email };
+      const response = await UserCreateApi(formDataWithEmail);
+      dispatch(
+        showSnackbar({
+          message: "User created successfully!",
+          severity: "success",
+          anchorOrigin: { vertical: "top", horizontal: "right" },
+        })
+      );
+      navigate("/tenantDetails", { state: { email } });
+
+      // if (response.status === 200 || response.status === 201) {
+      //   if (
+      //     response.data.exception.statusCode == 200 ||
+      //     response.data.exception.statusCode === 201
+      //   ) {
+      //     toast.success(response.data.message || "Operation successful!", {
+      //       position: "top-right",
+      //       autoClose: 3000,
+      //       style: { color: "green" },
+      //     });
+      //   } else {
+      //     const errorMessage =
+      //       response.data.message || "Error Submitting UserDetails";
+      //     toast.error(errorMessage, {
+      //       position: "top-right",
+      //       autoClose: 3000,
+      //       style: { color: "red" },
+      //     });
+      //   }
+      // }
+    } catch (error) {
+      if (error.response && error.response.data) {
+        const errorMessage =
+          error.response.data.message || "Error Submitting UserDetails";
+        toast.error(errorMessage, {
+          position: "top-right",
+          autoClose: 3000,
+        });
+      }
+    }
   };
+
   return (
     <Box
       sx={{
@@ -54,8 +108,13 @@ const index = () => {
             Welcome to Technobrains!!
           </Typography>
 
-          <Box component="form" noValidate sx={{ mt: 5, width: "100%" }}>
-            <TextField
+          <Box
+            component="form"
+            noValidate
+            sx={{ mt: 5, width: "100%" }}
+            onSubmit={handleSubmit(onSubmit)}
+          >
+            {/* <TextField
               margin="normal"
               required
               fullWidth
@@ -64,22 +123,43 @@ const index = () => {
               name="subdomain"
               autoComplete="subdomain"
               autoFocus
-              value={subdomain}
-              onChange={(e) => setSubDomain(e.target.value)}
+              {...register("subdomain", { required: "Subdomain is required" })}
+              error={!!errors.subdomain}
+              helperText={errors.subdomain?.message}
+              // value={subdomain}
+              // onChange={(e) => setSubDomain(e.target.value)}
+            /> */}
+            <TextField
+              margin="normal"
+              required
+              fullWidth
+              id="firstName"
+              label="First Name"
+              name="firstName"
+              autoComplete="firstName"
+              autoFocus
+              {...register("firstName", { required: "First name is required" })}
+              error={!!errors.firstName}
+              helperText={errors.firstName?.message}
+              // value={firstName}
+              // onChange={(e) => setFirstName(e.target.value)}
             />
             <TextField
               margin="normal"
               required
               fullWidth
-              id="fullName"
-              label="Full Name"
-              name="fullName"
-              autoComplete="fullName"
+              id="lastName"
+              label="Last Name"
+              name="lastName"
+              autoComplete="lastName"
               autoFocus
-              value={name}
-              onChange={(e) => setName(e.target.value)}
+              {...register("lastName", { required: "Last name is required" })}
+              error={!!errors.lastName}
+              helperText={errors.lastName?.message}
+              // value={lastName}
+              // onChange={(e) => setLastName(e.target.value)}
             />
-            <TextField
+            {/* <TextField
               margin="normal"
               required
               fullWidth
@@ -88,9 +168,12 @@ const index = () => {
               name="userName"
               autoComplete="userName"
               autoFocus
-              value={userName}
-              onChange={(e) => setUserName(e.target.value)}
-            />
+              {...register("userName", { required: "Username is required" })}
+              error={!!errors.userName}
+              helperText={errors.userName?.message}
+              // value={userName}
+              // onChange={(e) => setUserName(e.target.value)}
+            /> */}
             <TextField
               margin="normal"
               required
@@ -100,8 +183,11 @@ const index = () => {
               name="password"
               autoComplete="password"
               autoFocus
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              {...register("password", { required: "Password is required" })}
+              error={!!errors.password}
+              helperText={errors.password?.message}
+              // value={password}
+              // onChange={(e) => setPassword(e.target.value)}
             />
 
             <Button
@@ -115,7 +201,6 @@ const index = () => {
                 },
                 color: "#fff",
               }}
-              onClick={handleNavigate}
             >
               Let's Get Started
             </Button>
