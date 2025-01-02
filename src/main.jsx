@@ -9,11 +9,11 @@ import store from "./store/store.js";
 import SnackbarComponent from "./Utills/Snackbar.jsx";
 
 createRoot(document.getElementById("root")).render(
-  <Provider store={store}>
-    <StrictMode>
-      <App />
-      <ToastContainer />
-      <SnackbarComponent />
-    </StrictMode>
-  </Provider>
+    <Provider store={store}>
+      <StrictMode>
+        <App />
+        <ToastContainer />
+        <SnackbarComponent />
+      </StrictMode>
+    </Provider>
 );

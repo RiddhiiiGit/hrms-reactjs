@@ -7,6 +7,7 @@ import {
   Button,
   TextField,
   Link,
+  Stack,
 } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 import { useLocation, useNavigate } from "react-router-dom";
@@ -21,12 +22,15 @@ const LoginPage = () => {
 
   const navigate = useNavigate();
   const location = useLocation();
-  const [email, setEmail] = useState(location.state?.email);
+  const [email, setEmail] = useState("");
 
-  const handleSignUpClick = () => {
-    console.log(email);
-    navigate("/signup", { state: { email } });
+  // Function to handle Sign-Up click
+  const handleSignUpClick = (data) => {
+    setEmail(data.email); // Store the email in state
+    localStorage.setItem("email", data.email); // Store it in localStorage
+    navigate("/signup", { state: { email: data.email } }); // Pass email to the SignUp page
   };
+
   useEffect(() => {
     const storedEmail = localStorage.getItem("email");
     setEmail(storedEmail || "");
@@ -45,7 +49,6 @@ const LoginPage = () => {
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
-        margin: 0,
         height: "100vh",
       }}
     >
@@ -70,17 +73,17 @@ const LoginPage = () => {
             alignItems: "center",
           }}
         >
-          <Grid2 item sx={{ mb: 6 }}>
+          <Stack sx={{ mb: 6 }}>
             <Link to="#">
               <img src={CompanyLogo} alt="logo" height="70" />
             </Link>
-          </Grid2>
+          </Stack>
           <Typography component="h1" variant="h6" sx={{ fontWeight: "bold" }}>
             Welcome To Technobrains!!
           </Typography>
           <Box
             component="form"
-            onSubmit={handleSubmit(handleSignUpClick)}
+            onSubmit={handleSubmit()}
             noValidate
             sx={{ mt: 1, width: "100%" }}
           >
@@ -138,7 +141,7 @@ const LoginPage = () => {
                 },
                 color: "#fff",
               }}
-              // onClick={handleSignUpClick}
+              onClick={handleSubmit(handleSignUpClick)}
             >
               Sign Up
             </Button>
