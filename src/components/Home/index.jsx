@@ -12,14 +12,14 @@ const index = () => {
     >
       <Typography
         component="h5"
-        variant="overline"
+        variant="subtitle"
         sx={{
           fontWeight: "bold",
           color: "gray",
           fontSize: "36px",
         }}
       >
-        Comming Soon..
+       Dashboard: Comming Soon..
       </Typography>
       <AddTenantDetails />
     </Box>

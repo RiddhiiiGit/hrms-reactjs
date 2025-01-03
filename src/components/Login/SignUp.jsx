@@ -1,15 +1,26 @@
 import { Box, Button, Container, TextField, Typography } from "@mui/material";
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useForm } from "react-hook-form";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const SignUp = () => {
+  const location = useLocation();
   const navigate = useNavigate();
-  const [email, setEmail] = useState("");
-  const handleSubmit = (event) => {
-    event.preventDefault();
-  };
-  const handleClick = () => {
-    navigate("/userDetails");
+  const [email, setEmail] = useState(location.state?.email || "");
+
+  const {
+    register,
+    handleSubmit,
+    setValue,
+    formState: { errors },
+  } = useForm();
+
+  React.useEffect(() => {
+    setValue("email", email);
+  }, [email, setValue]);
+
+  const onSubmit = (data) => {
+    navigate("/userDetails", { state: { email: data.email } });
   };
   return (
     <>
@@ -54,7 +65,7 @@ const SignUp = () => {
             </Typography>
             <Box
               component="form"
-              onSubmit={handleSubmit}
+              onSubmit={handleSubmit(onSubmit)}
               noValidate
               sx={{ mt: 1, width: "100%" }}
             >
@@ -67,7 +78,10 @@ const SignUp = () => {
                 name="email"
                 autoComplete="email"
                 autoFocus
-                value={email}
+                // value={email}
+                {...register("email", {
+                  required: "Email Address is required",
+                })}
                 onChange={(e) => setEmail(e.target.value)}
               />
 
@@ -82,7 +96,6 @@ const SignUp = () => {
                   },
                   color: "#fff",
                 }}
-                onClick={handleClick}
               >
                 Create My Account
               </Button>

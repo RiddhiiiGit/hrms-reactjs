@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Typography,
   Grid2,
@@ -7,31 +7,48 @@ import {
   Button,
   TextField,
   Link,
+  Stack,
 } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import LoginFooter from "./LoginFooter";
-import companyLogo from ""
+import CompanyLogo from "../../assets/images/companyLogo.png";
+import { useDispatch, useSelector } from "react-redux";
+import { useForm } from "react-hook-form";
 
 const LoginPage = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
   const theme = useTheme();
-  const handleSubmit = (event) => {
-    event.preventDefault();
-  };
-  const navigate = useNavigate();
+  const { user, token, loading, error } = useSelector((state) => state.auth);
 
-  const handleSignUpClick = () => {
-    navigate("/signup");
+  const navigate = useNavigate();
+  const location = useLocation();
+  const [email, setEmail] = useState("");
+
+  // Function to handle Sign-Up click
+  const handleSignUpClick = (data) => {
+    setEmail(data.email); // Store the email in state
+    localStorage.setItem("email", data.email); // Store it in localStorage
+    navigate("/signup", { state: { email: data.email } }); // Pass email to the SignUp page
   };
+
+  useEffect(() => {
+    const storedEmail = localStorage.getItem("email");
+    setEmail(storedEmail || "");
+  }, []);
+
+  const {
+    register,
+    handleSubmit,
+    setValue,
+    formState: { errors },
+  } = useForm();
+
   return (
     <Box
       sx={{
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
-        margin: 0,
         height: "100vh",
       }}
     >
@@ -56,17 +73,17 @@ const LoginPage = () => {
             alignItems: "center",
           }}
         >
-          <Grid2 item sx={{ mb: 6 }}>
+          <Stack sx={{ mb: 6 }}>
             <Link to="#">
-              <img src={companyLogo} alt="logo" height="70" />
+              <img src={CompanyLogo} alt="logo" height="70" />
             </Link>
-          </Grid2>
+          </Stack>
           <Typography component="h1" variant="h6" sx={{ fontWeight: "bold" }}>
             Welcome To Technobrains!!
           </Typography>
           <Box
             component="form"
-            onSubmit={handleSubmit}
+            onSubmit={handleSubmit()}
             noValidate
             sx={{ mt: 1, width: "100%" }}
           >
@@ -79,8 +96,9 @@ const LoginPage = () => {
               name="email"
               autoComplete="email"
               autoFocus
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              {...register("email", { required: "Email Address is required" })}
+              error={!!errors.email}
+              helperText={errors.email?.message}
             />
             <TextField
               margin="normal"
@@ -91,8 +109,11 @@ const LoginPage = () => {
               type="password"
               id="password"
               autoComplete="current-password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              {...register("password", {
+                required: "Password is required",
+              })}
+              error={!!errors.password}
+              helperText={errors.password?.message}
             />
             <Button
               type="submit"
@@ -106,6 +127,7 @@ const LoginPage = () => {
                 },
                 color: "#fff",
               }}
+              // onClick={handleLogin}
             >
               Sign In
             </Button>
@@ -119,7 +141,7 @@ const LoginPage = () => {
                 },
                 color: "#fff",
               }}
-              onClick={handleSignUpClick}
+              onClick={handleSubmit(handleSignUpClick)}
             >
               Sign Up
             </Button>
