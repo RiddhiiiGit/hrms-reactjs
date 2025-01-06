@@ -12,21 +12,6 @@ import Sidebar from "../SideBar/index.jsx";
 import { useSidebar } from "../../../contexts/SidebarContext.jsx";
 
 const Header = () => {
-  const { mode } = useSelector((state) => state.theme);
-  const dispatch = useDispatch();
-
-  const theme = React.useMemo(
-    () =>
-      createTheme({
-        ...themeConfig,
-        palette: {
-          ...themeConfig.palette,
-          mode,
-        },
-      }),
-    [mode]
-  );
-
   const appliedTheme = useTheme();
   const { toggleSidebar } = useSidebar();
 
@@ -88,7 +73,7 @@ const Header = () => {
               justifyContent: "flex-end",
             }}
           >
-            {/* <DownloadTracker /> */}
+            <DownloadTracker />
             <NotificationSection />
             <ProfileSection />
           </Box>

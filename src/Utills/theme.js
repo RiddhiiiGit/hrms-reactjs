@@ -10,7 +10,7 @@ const themeConfig = createTheme({
     secondary: {
       main: "#00695c",
       light: "#80cbc4",
-    },
+    }, 
     background: {
       default: "#f5f5f5",
       main: "#616161",
@@ -20,16 +20,7 @@ const themeConfig = createTheme({
       secondary: "#555555",
       dark: "#00897b",
     },
-    // text: {
-    //   primary: "#000000",
-    //   secondary: "#555555",
-    //   dark: "#212121",
-    //   hint: "#f5f5f5",
-    // },
-    // background: {
-    //   paper: "#ffffff",
-    //   default: "#f5f5f5",
-    // },
+  
     error: {
       light: "#e57373",
       main: "#f44336",

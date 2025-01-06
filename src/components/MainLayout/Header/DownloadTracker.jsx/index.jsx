@@ -22,21 +22,30 @@ import {
   IconBrandApple,
   IconBrandUbuntu,
   IconBrandWindows,
+  IconDownload,
 } from "@tabler/icons-react";
 
 const DownloadTracker = () => {
   const appliedTheme = useTheme();
   const [open, setOpen] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
-  const customization = useSelector((state) => state.customization);
-
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
 
   const handleToggle = (e) => {
+    console.log("Toggle Clicked");
     setAnchorEl(e.currentTarget);
     setOpen((prevOpen) => !prevOpen);
+    console.log("Popper Open:", open);
+    console.log("Anchor Element:", e.currentTarget);
+  };
+
+  const handleClose = (event) => {
+    if (anchorEl && anchorEl.contains(event.target)) {
+      console.log("Clicked on toggle, ignoring close.");
+      return;
+    }
+    console.log("Click away detected, closing Popper.");
+    setAnchorEl(null);
+    setOpen(false);
   };
 
   return (
@@ -44,9 +53,9 @@ const DownloadTracker = () => {
       <Avatar
         variant="rounded"
         aria-label="Tracker Download"
+        onClick={handleToggle}
         sx={{
-          // ...theme.typography.commonAvatar,
-          // ...theme.typography.mediumAvatar,
+          borderRadius: 2,
           transition: "all .2s ease-in-out",
           background: appliedTheme.palette.secondary.light,
           color: appliedTheme.palette.secondary.main,
@@ -57,19 +66,17 @@ const DownloadTracker = () => {
         }}
         aria-controls={open ? "menu-list-grow" : undefined}
         aria-haspopup="true"
-        color="inherit"
-        onClick={handleToggle}
+        // color="inherit"
       >
-        {/* <IconDownload stroke={2} size="1.4rem" /> */}
+        <IconDownload stroke={2} size="1.4rem" />
       </Avatar>
       <Popper
         placement="bottom-end"
         role={undefined}
         transition
         disablePortal
-        open={Boolean(anchorEl)}
+        open={Boolean(anchorEl)} // Ensure this reflects the correct value
         anchorEl={anchorEl}
-        onClose={handleClose}
         popperOptions={{
           modifiers: [
             {
@@ -106,12 +113,9 @@ const DownloadTracker = () => {
                         minWidth: 150,
                         backgroundColor: appliedTheme.palette.background.paper,
                         borderRadius: "10px",
-                        // [appliedTheme.breakpoints.down("md")]: {
-                        //   minWidth: "100%",
-                        // },
+
                         "& .MuiListItemButton-root": {
                           px: 1,
-                          // borderRadius: `${customization.borderRadius}px`,
                         },
                       }}
                     >

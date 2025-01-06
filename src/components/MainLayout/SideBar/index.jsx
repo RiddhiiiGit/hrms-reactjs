@@ -5,25 +5,14 @@ import {
   List,
   ListItem,
   ListItemText,
-  IconButton,
   useTheme,
 } from "@mui/material";
 import { useSidebar } from "../../../contexts/SidebarContext";
 
 const Sidebar = () => {
-  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const { isSidebarOpen, toggleSidebar } = useSidebar();
-
   const appliedTheme = useTheme();
-  const toggleDrawer = (open) => (event) => {
-    if (
-      event.type === "keydown" &&
-      (event.key === "Tab" || event.key === "Shift")
-    ) {
-      return;
-    }
-    setIsDrawerOpen(open);
-  };
+
   return (
     <>
       <Drawer
