@@ -1,8 +1,8 @@
 import React, { lazy, Suspense } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { createTheme, ThemeProvider } from "@mui/material";
-import themeConfig from "./Utills/Theme";
 import { useSelector } from "react-redux";
+import themeConfig from "./Utills/theme";
 
 const LoginPage = lazy(() => import("./components/Login/LoginPage"));
 const SignUp = lazy(() => import("./components/Login/SignUp"));
@@ -28,7 +28,7 @@ function App() {
     [mode]
   );
   return (
-    <ThemeProvider theme={theme}>
+    <ThemeProvider theme={themeConfig}>
       <Router>
         <Routes>
           <Route path="/login" element={<LoginPage />} />
