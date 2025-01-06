@@ -1,6 +1,11 @@
 import React, { lazy, Suspense } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { createTheme, ThemeProvider } from "@mui/material";
+import {
+  Box,
+  CircularProgress,
+  createTheme,
+  ThemeProvider,
+} from "@mui/material";
 import { useSelector } from "react-redux";
 import themeConfig from "./Utills/theme";
 
@@ -28,16 +33,32 @@ function App() {
     [mode]
   );
   return (
-    <ThemeProvider theme={themeConfig}>
+    <ThemeProvider theme={theme}>
       <Router>
-        <Routes>
-          <Route path="/login" element={<LoginPage />} />
-          <Route path="signup" element={<SignUp />} />
-          <Route path="home" element={<Home />} />
-          <Route path="userDetails" element={<UserDetail />} />
-          <Route path="tenantDetails" element={<AddTenantDetails />} />
-          <Route path="/" element={<MainLayout />} />
-        </Routes>
+        <Suspense
+          fallback={
+            <Box
+              sx={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                height: "110vh",
+              }}
+            >
+              <CircularProgress />
+            </Box>
+          }
+        >
+          <Routes>
+            <Route path="/login" element={<LoginPage />} />
+            <Route path="/" element={<LoginPage />} />
+            <Route path="/signup" element={<SignUp />} />
+            <Route path="/home" element={<Home />} />
+            <Route path="/userDetails" element={<UserDetail />} />
+            <Route path="/tenantDetails" element={<AddTenantDetails />} />
+            <Route path="/dashboard" element={<MainLayout />} />
+          </Routes>
+        </Suspense>
       </Router>
     </ThemeProvider>
   );

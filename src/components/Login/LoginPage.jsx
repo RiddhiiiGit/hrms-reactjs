@@ -26,7 +26,7 @@ const LoginPage = () => {
 
   // Function to handle Sign-Up click
   const handleSignUpClick = (data) => {
-    setEmail(data.email); // Store the email in state
+    setEmail(data.email); 
     localStorage.setItem("email", data.email); // Store it in localStorage
     navigate("/signup", { state: { email: data.email } }); // Pass email to the SignUp page
   };
