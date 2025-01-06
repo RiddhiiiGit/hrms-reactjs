@@ -13,7 +13,7 @@ const LogoSection = () => {
       disableRipple
       component={NavLink}
     >
-      <img src={CompanyLogo} alt="logo" height="45" />
+      <img src={CompanyLogo} alt="logo" height="52" />
     </ButtonBase>
   );
 };

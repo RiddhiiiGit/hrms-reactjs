@@ -7,13 +7,16 @@ import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer } from "react-toastify";
 import store from "./store/store.js";
 import SnackbarComponent from "./Utills/Snackbar.jsx";
+import { SidebarProvider } from "./contexts/SidebarContext.jsx";
 
 createRoot(document.getElementById("root")).render(
-    <Provider store={store}>
+  <Provider store={store}>
+    <SidebarProvider>
       <StrictMode>
         <App />
         <ToastContainer />
         <SnackbarComponent />
       </StrictMode>
-    </Provider>
+    </SidebarProvider>
+  </Provider>
 );

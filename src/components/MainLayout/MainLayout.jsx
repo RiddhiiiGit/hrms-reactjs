@@ -1,6 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
 import { Outlet } from "react-router-dom";
-import Header from "./Header";
 // material-ui
 import { styled, useTheme } from "@mui/material/styles";
 import {
@@ -11,17 +10,33 @@ import {
   useMediaQuery,
 } from "@mui/material";
 import React from "react";
-import ProfileSection from "./Header/ProfileSection";
-
+import Header from "./Header";
 // ==============================|| MAIN LAYOUT ||============================== //
 
 const MainLayout = () => {
-  const theme = useTheme();
-
-
   return (
-    <Box >
+    <Box>
       <Header />
+
+      {/* <CssBaseline /> */}
+      {/* <AppBar
+        enableColorOnDark
+        position="fixed"
+        color="inherit"
+        elevation={7}
+        sx={{
+          // opacity: '91%',
+          height: "60px",
+          background: theme.palette.secondary.light,
+          transition: leftDrawerOpened
+            ? theme.transitions.create("width")
+            : "none",
+        }}
+      >
+        <Toolbar>
+          <Header handleLeftDrawerToggle={handleLeftDrawerToggle} />
+        </Toolbar>
+      </AppBar> */}
     </Box>
   );
 };
