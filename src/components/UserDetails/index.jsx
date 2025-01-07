@@ -3,9 +3,8 @@ import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
-import { toast } from "react-toastify";
-import { UserCreateApi } from "../../apis/user";
 import { showSnackbar } from "../../features/snackbar/snackbarSlice";
+import { TenantRegistrationApi } from "../../apis/tenantRegistration";
 
 const index = () => {
   const navigate = useNavigate();
@@ -23,44 +22,26 @@ const index = () => {
   const onSubmit = async (data) => {
     try {
       const formDataWithEmail = { ...data, email };
-      const response = await UserCreateApi(formDataWithEmail);
+      const response = await TenantRegistrationApi(formDataWithEmail);
       dispatch(
         showSnackbar({
-          message: "User created successfully!",
+          message: "Tenant Registered successfully!",
           severity: "success",
           anchorOrigin: { vertical: "top", horizontal: "right" },
         })
       );
       navigate("/tenantDetails", { state: { email } });
-
-      // if (response.status === 200 || response.status === 201) {
-      //   if (
-      //     response.data.exception.statusCode == 200 ||
-      //     response.data.exception.statusCode === 201
-      //   ) {
-      //     toast.success(response.data.message || "Operation successful!", {
-      //       position: "top-right",
-      //       autoClose: 3000,
-      //       style: { color: "green" },
-      //     });
-      //   } else {
-      //     const errorMessage =
-      //       response.data.message || "Error Submitting UserDetails";
-      //     toast.error(errorMessage, {
-      //       position: "top-right",
-      //       autoClose: 3000,
-      //       style: { color: "red" },
-      //     });
-      //   }
-      // }
     } catch (error) {
       if (error.response && error.response.data) {
         const errorMessage =
           error.response.data.message || "Error Submitting UserDetails";
-        toast.error(errorMessage, {
-          position: "top-right",
-          autoClose: 3000,
-        });
+        dispatch(
+          showSnackbar({
+            message: "Tenant is not registered!!",
+            severity: "warning",
+            anchorOrigin: { vertical: "top", horizontal: "right" },
+          })
+        );
       }
     }
   };
@@ -72,7 +53,6 @@ const index = () => {
         justifyContent: "center",
         alignItems: "center",
         height: "95vh",
-        backgroundColor: "#f5f5f5",
       }}
     >
       <Container
@@ -114,21 +94,22 @@ const index = () => {
             sx={{ mt: 5, width: "100%" }}
             onSubmit={handleSubmit(onSubmit)}
           >
-            {/* <TextField
+            <TextField
               margin="normal"
               required
               fullWidth
-              id="subdomain"
-              label="Subdomain"
-              name="subdomain"
-              autoComplete="subdomain"
+              id="subdomainName"
+              label="subdomainName"
+              name="subdomainName"
+              autoComplete="subdomainName"
               autoFocus
-              {...register("subdomain", { required: "Subdomain is required" })}
-              error={!!errors.subdomain}
-              helperText={errors.subdomain?.message}
-              // value={subdomain}
-              // onChange={(e) => setSubDomain(e.target.value)}
-            /> */}
+              {...register("subdomainName", {
+                required: "Subdomain is required",
+              })}
+              error={!!errors.subdomainName}
+              helperText={errors.subdomainName?.message}
+             
+            />
             <TextField
               margin="normal"
               required
@@ -141,8 +122,7 @@ const index = () => {
               {...register("firstName", { required: "First name is required" })}
               error={!!errors.firstName}
               helperText={errors.firstName?.message}
-              // value={firstName}
-              // onChange={(e) => setFirstName(e.target.value)}
+              
             />
             <TextField
               margin="normal"
@@ -156,10 +136,9 @@ const index = () => {
               {...register("lastName", { required: "Last name is required" })}
               error={!!errors.lastName}
               helperText={errors.lastName?.message}
-              // value={lastName}
-              // onChange={(e) => setLastName(e.target.value)}
+              
             />
-            {/* <TextField
+            <TextField
               margin="normal"
               required
               fullWidth
@@ -171,9 +150,8 @@ const index = () => {
               {...register("userName", { required: "Username is required" })}
               error={!!errors.userName}
               helperText={errors.userName?.message}
-              // value={userName}
-              // onChange={(e) => setUserName(e.target.value)}
-            /> */}
+             
+            />
             <TextField
               margin="normal"
               required
@@ -186,8 +164,7 @@ const index = () => {
               {...register("password", { required: "Password is required" })}
               error={!!errors.password}
               helperText={errors.password?.message}
-              // value={password}
-              // onChange={(e) => setPassword(e.target.value)}
+              
             />
 
             <Button

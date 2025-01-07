@@ -8,6 +8,7 @@ import {
   useTheme,
 } from "@mui/material";
 import { useSidebar } from "../../../contexts/SidebarContext";
+import { Link } from "react-router-dom";
 
 const Sidebar = () => {
   const { isSidebarOpen, toggleSidebar } = useSidebar();
@@ -36,6 +37,8 @@ const Sidebar = () => {
             <ListItem
               key={text}
               button="true"
+              component={Link}
+              to={`${text.toLowerCase()}`}
               sx={{
                 color: appliedTheme.palette.text.primary,
                 "&:hover": {

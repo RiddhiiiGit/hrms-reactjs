@@ -2,13 +2,10 @@ import { createTheme, ThemeProvider, useTheme } from "@mui/material/styles";
 import React from "react";
 import LogoSection from "./LogoSection";
 import { Avatar, Box, ButtonBase, Container } from "@mui/material";
-import { useDispatch, useSelector } from "react-redux";
 import ProfileSection from "./ProfileSection";
 import NotificationSection from "./NotificationSection";
 import DownloadTracker from "./DownloadTracker.jsx";
 import MenuIcon from "@mui/icons-material/Menu";
-import themeConfig from "../../../Utills/theme.js";
-import Sidebar from "../SideBar/index.jsx";
 import { useSidebar } from "../../../contexts/SidebarContext.jsx";
 
 const Header = () => {
@@ -59,7 +56,6 @@ const Header = () => {
                     color: appliedTheme.palette.secondary.light,
                   },
                 }}
-                // onClick={handleLeftDrawerToggle}
                 color="inherit"
               >
                 <MenuIcon stroke={1.5} size="1.3rem" />
@@ -79,7 +75,6 @@ const Header = () => {
           </Box>
         </Box>
       </Box>
-      <Sidebar />
     </>
   );
 };

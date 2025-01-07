@@ -13,7 +13,7 @@ const LoginPage = lazy(() => import("./components/Login/LoginPage"));
 const SignUp = lazy(() => import("./components/Login/SignUp"));
 const Home = lazy(() => import("./components/Home"));
 const UserDetail = lazy(() => import("./components/UserDetails"));
-const MainLayout = lazy(() => import("./components/MainLayout/Header"));
+const MainLayout = lazy(() => import("./components/MainLayout/MainLayout"));
 const AddTenantDetails = lazy(() =>
   import("./components/Home/TenantDetails/AddTenantDetails")
 );
@@ -53,10 +53,11 @@ function App() {
             <Route path="/login" element={<LoginPage />} />
             <Route path="/" element={<LoginPage />} />
             <Route path="/signup" element={<SignUp />} />
-            <Route path="/home" element={<Home />} />
             <Route path="/userDetails" element={<UserDetail />} />
             <Route path="/tenantDetails" element={<AddTenantDetails />} />
-            <Route path="/dashboard" element={<MainLayout />} />
+            <Route path="/dashboard" element={<MainLayout />}>
+              <Route path="home" element={<Home />} />
+            </Route>
           </Routes>
         </Suspense>
       </Router>

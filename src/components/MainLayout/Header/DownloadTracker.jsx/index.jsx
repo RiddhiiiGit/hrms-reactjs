@@ -2,6 +2,8 @@ import { useTheme } from "@mui/material/styles";
 import {
   Avatar,
   Box,
+  Card,
+  CardContent,
   ClickAwayListener,
   Divider,
   List,
@@ -15,7 +17,6 @@ import {
 } from "@mui/material";
 
 import { useState } from "react";
-import { useSelector } from "react-redux";
 import MainCard from "../../../ui-components/MainCard/MainCard";
 import Transitions from "../../../ui-components/Extended/Transitions";
 import {
@@ -30,26 +31,22 @@ const DownloadTracker = () => {
   const [open, setOpen] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
 
-  const handleToggle = (e) => {
-    console.log("Toggle Clicked");
-    setAnchorEl(e.currentTarget);
-    setOpen((prevOpen) => !prevOpen);
-    console.log("Popper Open:", open);
-    console.log("Anchor Element:", e.currentTarget);
+  // const handleToggle = (e) => {
+  //   console.log("Toggle Clicked");
+  //   setAnchorEl(e.currentTarget);
+  //   setOpen((prevOpen) => !prevOpen);
+  //   console.log("Popper Open:", open);
+  //   console.log("Anchor Element:", e.currentTarget);
+  // };
+  const handleToggle = (event) => {
+    setAnchorEl(anchorEl ? null : event.currentTarget);
   };
-
-  const handleClose = (event) => {
-    if (anchorEl && anchorEl.contains(event.target)) {
-      console.log("Clicked on toggle, ignoring close.");
-      return;
-    }
-    console.log("Click away detected, closing Popper.");
+  const handleClose = () => {
     setAnchorEl(null);
-    setOpen(false);
   };
 
   return (
-    <>
+    <Box>
       <Avatar
         variant="rounded"
         aria-label="Tracker Download"
@@ -66,16 +63,99 @@ const DownloadTracker = () => {
         }}
         aria-controls={open ? "menu-list-grow" : undefined}
         aria-haspopup="true"
-        // color="inherit"
       >
         <IconDownload stroke={2} size="1.4rem" />
       </Avatar>
       <Popper
         placement="bottom-end"
-        role={undefined}
         transition
         disablePortal
-        open={Boolean(anchorEl)} // Ensure this reflects the correct value
+        open={Boolean(anchorEl)}
+        anchorEl={anchorEl}
+        popperOptions={{
+          modifiers: [{ name: "offset", options: { offset: [0, 13] } }],
+        }}
+      >
+        {({ TransitionProps }) => (
+          <Transitions in={open} {...TransitionProps}>
+            {" "}
+            <Paper>
+              {" "}
+              <ClickAwayListener onClickAway={handleClose}>
+                <Box
+                  border={false}
+                  elevation={16}
+                  content={false}
+                  sx={{ boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)" }}
+                >
+                  {" "}
+                  <Box sx={{ p: 2 }}>
+                    {" "}
+                    <Stack>
+                      {" "}
+                      <Typography variant="h4">
+                        Download Trackers
+                      </Typography>{" "}
+                    </Stack>{" "}
+                    <Divider sx={{ mt: "15px" }} />
+                    <List
+                      component="nav"
+                      sx={{
+                        width: "100%",
+                        maxWidth: 350,
+                        minWidth: 150,
+                        backgroundColor: "#fff",
+                        borderRadius: "10px",
+                        "& .MuiListItemButton-root": { px: 1 },
+                      }}
+                    >
+                      {" "}
+                      <ListItemButton>
+                        {" "}
+                        <ListItemIcon>
+                          {" "}
+                          <IconBrandWindows stroke={1.6} size={"1.7rem"} />{" "}
+                        </ListItemIcon>{" "}
+                        <ListItemText
+                          primary={
+                            <Typography variant="h5">Windows</Typography>
+                          }
+                        />{" "}
+                      </ListItemButton>{" "}
+                      <ListItemButton>
+                        {" "}
+                        <ListItemIcon>
+                          {" "}
+                          <IconBrandApple stroke={1.6} size={"1.7rem"} />{" "}
+                        </ListItemIcon>{" "}
+                        <ListItemText
+                          primary={<Typography variant="h5">Mac</Typography>}
+                        />{" "}
+                      </ListItemButton>{" "}
+                      <ListItemButton>
+                        {" "}
+                        <ListItemIcon>
+                          {" "}
+                          <IconBrandUbuntu stroke={1.6} size={"1.7rem"} />{" "}
+                        </ListItemIcon>{" "}
+                        <ListItemText
+                          primary={<Typography variant="h5">Linux</Typography>}
+                        />{" "}
+                      </ListItemButton>{" "}
+                    </List>{" "}
+                  </Box>{" "}
+                </Box>
+              </ClickAwayListener>{" "}
+            </Paper>
+          </Transitions>
+        )}
+      </Popper>
+
+      {/* <Popper
+        placement="bottom-end"
+        transition
+        disablePortal
+        open={Boolean(anchorEl)}
         anchorEl={anchorEl}
         popperOptions={{
           modifiers: [
@@ -152,8 +232,8 @@ const DownloadTracker = () => {
             </Paper>
           </Transitions>
         )}
-      </Popper>
-    </>
+      </Popper> */}
+    </Box>
   );
 };
 
