@@ -3,7 +3,8 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   open: false,
   message: "",
-  severity: "info", // Can be 'success', 'error', 'warning', 'info'
+  severity: "info", 
+  anchorOrigin: { vertical: 'top', horizontal: 'right' }, 
 };
 
 const snackbarSlice = createSlice({

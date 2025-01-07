@@ -24,11 +24,10 @@ const LoginPage = () => {
   const location = useLocation();
   const [email, setEmail] = useState("");
 
-  // Function to handle Sign-Up click
   const handleSignUpClick = (data) => {
-    setEmail(data.email); 
-    localStorage.setItem("email", data.email); // Store it in localStorage
-    navigate("/signup", { state: { email: data.email } }); // Pass email to the SignUp page
+    setEmail(data.email);
+    localStorage.setItem("email", data.email);
+    navigate("/signup", { state: { email: data.email } });
   };
 
   useEffect(() => {
@@ -92,10 +91,10 @@ const LoginPage = () => {
               required
               fullWidth
               id="email"
+
               label="Email Address"
               name="email"
               autoComplete="email"
-              autoFocus
               {...register("email", { required: "Email Address is required" })}
               error={!!errors.email}
               helperText={errors.email?.message}
@@ -127,7 +126,6 @@ const LoginPage = () => {
                 },
                 color: "#fff",
               }}
-              // onClick={handleLogin}
             >
               Sign In
             </Button>

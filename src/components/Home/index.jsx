@@ -19,9 +19,9 @@ const index = () => {
           fontSize: "36px",
         }}
       >
-       Dashboard: Comming Soon..
+        Dashboard: Comming Soon..
       </Typography>
-      <AddTenantDetails />
+      {/* <AddTenantDetails /> */}
     </Box>
   );
 };

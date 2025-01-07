@@ -10,7 +10,7 @@ const themeConfig = createTheme({
     secondary: {
       main: "#00695c",
       light: "#80cbc4",
-    }, 
+    },
     background: {
       default: "#f5f5f5",
       main: "#616161",
@@ -20,7 +20,7 @@ const themeConfig = createTheme({
       secondary: "#555555",
       dark: "#00897b",
     },
-  
+
     error: {
       light: "#e57373",
       main: "#f44336",
@@ -56,6 +56,24 @@ const themeConfig = createTheme({
       dark: "#212121",
       800: "#121212",
       900: "#0d0d0d",
+    },
+  },
+
+  components: {
+    MuiTextField: {
+      styleOverrides: {
+        root: {
+          "& .MuiOutlinedInput-root": {
+            "& fieldset": { borderColor: "rgba(0, 0, 0, 0.23)" },
+            "&:hover fieldset": { borderColor: "#bbdefb" },
+            "&.Mui-focused fieldset": { borderColor: "rgba(0, 0, 0, 0.23)" },
+          },
+          "& .MuiFormLabel-root": {
+            color: "rgba(0, 0, 0, 0.6)",
+            "&.Mui-focused": { color: "rgba(0, 0, 0, 0.6)" },
+          },
+        },
+      },
     },
   },
 });
