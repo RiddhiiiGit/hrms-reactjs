@@ -1,5 +1,6 @@
 // theme.js
 import { createTheme } from "@mui/material/styles";
+import themeTypography from "./Typography";
 
 const themeConfig = createTheme({
   palette: {
@@ -59,7 +60,25 @@ const themeConfig = createTheme({
     },
   },
 
+  typography: themeTypography({
+    palette: {
+      text: {
+        grey900: "#212121",
+        darkTextSecondary: "#d8ddf0",
+        darkTextPrimary: "#d5d9e9",
+      },
+    },
+  }),
   components: {
+    MainCard: {
+      styleOverrides: {
+        root: {
+          backgroundColor: "#424242",
+          boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.1)",
+          borderRadius: "12px",
+        },
+      },
+    },
     MuiTextField: {
       styleOverrides: {
         root: {

@@ -15,21 +15,24 @@ import LoginFooter from "./LoginFooter";
 import CompanyLogo from "../../assets/images/companyLogo.png";
 import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
+import { useAuth } from "../../contexts/AuthContext";
 
 const LoginPage = () => {
   const theme = useTheme();
-  const { user, token, loading, error } = useSelector((state) => state.auth);
-
   const navigate = useNavigate();
   const location = useLocation();
   const [email, setEmail] = useState("");
+  const { login } = useAuth();
 
   const handleSignUpClick = (data) => {
     setEmail(data.email);
     localStorage.setItem("email", data.email);
     navigate("/signup", { state: { email: data.email } });
   };
-
+  const handleLogin = (data) => {
+    login();
+    navigate("/dashboard");
+  };
   useEffect(() => {
     const storedEmail = localStorage.getItem("email");
     setEmail(storedEmail || "");
@@ -82,7 +85,7 @@ const LoginPage = () => {
           </Typography>
           <Box
             component="form"
-            onSubmit={handleSubmit()}
+            onSubmit={handleSubmit(handleLogin)}
             noValidate
             sx={{ mt: 1, width: "100%" }}
           >
@@ -91,7 +94,6 @@ const LoginPage = () => {
               required
               fullWidth
               id="email"
-
               label="Email Address"
               name="email"
               autoComplete="email"
