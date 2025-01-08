@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
-import { SentimentVeryDissatisfied } from "@mui/icons-material";
 import { Box, Typography } from "@mui/material";
 import React from "react";
+import { SentimentVeryDissatisfied } from "@mui/icons-material";
 
 const NoDataFound = ({ height, dynamicMsg }) => {
   return (
@@ -10,16 +10,14 @@ const NoDataFound = ({ height, dynamicMsg }) => {
       justifyContent="center"
       alignItems="center"
       flexDirection="column"
-      height={height ?? 0}
       textAlign="center"
+      width="100%"
+      height="100vh"
     >
-      <SentimentVeryDissatisfied fontSize="large" color="error" />
-      <Typography variant="h4" color="textSecondary" mt={2}>
+      <SentimentVeryDissatisfied sx={{ fontSize: 70 }} color="error" />
+      <Typography variant="h3" color="textSecondary">
         {dynamicMsg ? dynamicMsg : "Oops! No data found."}
       </Typography>
-      {/* <Typography variant="body2" color="textSecondary" mt={1}>
-                Don't worry, you can always come back later.
-            </Typography> */}
     </Box>
   );
 };

@@ -1,28 +1,17 @@
 import React from "react";
 import AddTenantDetails from "./TenantDetails/AddTenantDetails";
-import { Box, Typography } from "@mui/material";
-
+import { Box, ThemeProvider, Typography } from "@mui/material";
+import themeConfig from "../../Utills/theme";
+import MainCard from "../ui-components/MainCard/MainCard";
 const index = () => {
   return (
-    <Box
-      sx={{
-        justifyContent: "center",
-        alignItems: "center",
-      }}
-    >
-      <Typography
-        component="h5"
-        variant="subtitle"
-        sx={{
-          fontWeight: "bold",
-          color: "gray",
-          fontSize: "36px",
-        }}
-      >
-        Dashboard: Comming Soon..
-      </Typography>
-      {/* <AddTenantDetails /> */}
-    </Box>
+    <ThemeProvider theme={themeConfig}>
+      <MainCard>
+        <Typography variant="body2">
+          This is the content inside the MainCard component.
+        </Typography>
+      </MainCard>
+    </ThemeProvider>
   );
 };
 
