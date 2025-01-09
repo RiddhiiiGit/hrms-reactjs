@@ -6,10 +6,11 @@ const themeConfig = createTheme({
   palette: {
     primary: {
       main: "#e0f2f1",
-      light: "#ffffff",
+      // light: "#ffffff",
+      light: "#eceff1",
     },
     secondary: {
-      main: "#00695c",
+      main: "#009688",
       light: "#80cbc4",
     },
     background: {
@@ -66,6 +67,7 @@ const themeConfig = createTheme({
         grey900: "#212121",
         darkTextSecondary: "#d8ddf0",
         darkTextPrimary: "#d5d9e9",
+        grey500: "#9e9e9e",
       },
     },
   }),
@@ -91,6 +93,69 @@ const themeConfig = createTheme({
             color: "rgba(0, 0, 0, 0.6)",
             "&.Mui-focused": { color: "rgba(0, 0, 0, 0.6)" },
           },
+        },
+      },
+    },
+    MuiCssBaseline: {
+      styleOverrides: {
+        body: {
+          "&::-webkit-scrollbar, & *::-webkit-scrollbar": {
+            width: "0.4em",
+            height: "0.4em",
+          },
+          "&::-webkit-scrollbar-track, & *::-webkit-scrollbar-track": {
+            boxShadow: "inset 0 0 6px rgba(0,0,0,0.00)",
+            webkitBoxShadow: "inset 0 0 6px rgba(0,0,0,0.00)",
+          },
+          "&::-webkit-scrollbar-thumb, & *::-webkit-scrollbar-thumb": {
+            backgroundColor: "rgba(0,0,0,.1)",
+          },
+        },
+      },
+    },
+    MuiButton: {
+      styleOverrides: {
+        root: {
+          fontWeight: 500,
+          borderRadius: "4px",
+        },
+      },
+    },
+    MuiPaper: {
+      defaultProps: {
+        elevation: 0,
+      },
+      styleOverrides: {
+        root: {
+          backgroundImage: "none",
+        },
+        // rounded: {
+        //   borderRadius: `${theme?.customization?.borderRadius}px`,
+        // },
+      },
+    },
+    MuiCardHeader: {
+      styleOverrides: {
+        root: {
+          color: "#212121",
+          padding: "24px",
+        },
+        title: {
+          fontSize: "1.125rem",
+        },
+      },
+    },
+    MuiCardContent: {
+      styleOverrides: {
+        root: {
+          padding: "24px",
+        },
+      },
+    },
+    MuiCardActions: {
+      styleOverrides: {
+        root: {
+          padding: "24px",
         },
       },
     },
