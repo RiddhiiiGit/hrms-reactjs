@@ -8,7 +8,8 @@ import {
 } from "@mui/material";
 import { useSelector } from "react-redux";
 import themeConfig from "./Utills/theme";
-
+import AuthGuard from "./components/authGuard/AuthGuard";
+import { AuthProvider } from "./contexts/AuthContext";
 const LoginPage = lazy(() => import("./components/Login/LoginPage"));
 const SignUp = lazy(() => import("./components/Login/SignUp"));
 const Home = lazy(() => import("./components/Home"));
@@ -21,6 +22,9 @@ const OrganizationList = lazy(() =>
   import("./components/Organization/OrganizationsList")
 );
 
+const NoDataFound = lazy(() =>
+  import("./components/ui-components/models/NoDataFound")
+);
 function App() {
   const { mode } = useSelector((state) => state.theme);
 
@@ -37,6 +41,7 @@ function App() {
   );
   return (
     <ThemeProvider theme={theme}>
+            <AuthProvider>
       <Router>
         <Suspense
           fallback={
@@ -58,8 +63,14 @@ function App() {
             <Route path="/signup" element={<SignUp />} />
             <Route path="/userDetails" element={<UserDetail />} />
             <Route path="/tenantDetails" element={<AddTenantDetails />} />
-            <Route path="/dashboard" element={<MainLayout />}>
-              <Route path="home" element={<Home />} />
+            <Route
+                path="/dashboard"
+                element={
+                  <MainLayout />
+                  // <AuthGuard>
+                  // </AuthGuard>
+                }
+              >              <Route path="home" element={<Home />} />
               <Route
                 path="organizationDetails"
                 element={<OrganizationList />}
@@ -68,6 +79,7 @@ function App() {
           </Routes>
         </Suspense>
       </Router>
+      </AuthProvider>
     </ThemeProvider>
   );
 }

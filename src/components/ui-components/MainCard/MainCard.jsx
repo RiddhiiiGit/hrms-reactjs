@@ -3,6 +3,7 @@ import { forwardRef } from "react";
 
 // material-ui
 import { useTheme } from "@mui/material/styles";
+import React, { forwardRef } from "react";
 import {
   Card,
   CardContent,
@@ -10,6 +11,7 @@ import {
   Divider,
   Typography,
 } from "@mui/material";
+import { useTheme } from "@mui/material/styles";
 
 // eslint-disable-next-line react/display-name
 const MainCard = forwardRef(
@@ -39,16 +41,12 @@ const MainCard = forwardRef(
 
     return (
       <Card
-        ref={ref}
-        {...others}
         sx={{
-          border: border ? "1px solid" : "none",
-          borderColor: appliedTheme.palette.primary.main,
+          // border: border ? "1px solid" : "none",
           boxShadow: 2,
           ":hover": {
             boxShadow: 1,
           },
-          ...sx,
         }}
       >
         {/* card header and action */}

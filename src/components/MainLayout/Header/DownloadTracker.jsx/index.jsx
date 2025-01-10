@@ -78,9 +78,7 @@ const DownloadTracker = () => {
       >
         {({ TransitionProps }) => (
           <Transitions in={open} {...TransitionProps}>
-            {" "}
             <Paper>
-              {" "}
               <ClickAwayListener onClickAway={handleClose}>
                 <Box
                   border={false}

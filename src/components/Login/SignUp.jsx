@@ -78,7 +78,6 @@ const SignUp = () => {
                 name="email"
                 autoComplete="email"
                 autoFocus
-                // value={email}
                 {...register("email", {
                   required: "Email Address is required",
                 })}
