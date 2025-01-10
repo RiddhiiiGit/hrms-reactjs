@@ -62,6 +62,7 @@ const themeConfig = createTheme({
   },
 
   typography: themeTypography({
+    fontFamily: "'Poppins', sans-serif",
     palette: {
       text: {
         grey900: "#212121",
@@ -72,6 +73,13 @@ const themeConfig = createTheme({
     },
   }),
   components: {
+    MuiTypography: {
+      styleOverrides: {
+        root: {
+          fontFamily: "'Poppins', sans-serif",
+        },
+      },
+    },
     MainCard: {
       styleOverrides: {
         root: {
@@ -80,7 +88,48 @@ const themeConfig = createTheme({
           borderRadius: "12px",
         },
       },
+    }, 
+
+    MuiOutlinedInput: {
+      styleOverrides: {
+        root: {
+          background: "#fafafa",
+          // borderRadius: `${appliedTheme?.customization?.borderRadius}px`,
+          "& .MuiOutlinedInput-notchedOutline": {
+            borderColor: "#616161",
+          },
+
+          "&:hover .MuiOutlinedInput-notchedOutline": {
+            borderColor: "#616161",
+          },
+          "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
+            borderColor: "#eceff1",
+          },
+          "&.MuiInputBase-multiline": {
+            padding: 1,
+          },
+        },
+        input: {
+          fontWeight: 500,
+          background: "#fafafa",
+          padding: "15.5px 14px",
+          // borderRadius: `${appliedTheme?.customization?.borderRadius}px`,
+          "&.MuiInputBase-inputSizeSmall": {
+            padding: "10px 14px",
+            "&.MuiInputBase-inputAdornedStart": {
+              paddingLeft: 0,
+            },
+          },
+        },
+        inputAdornedStart: {
+          paddingLeft: 4,
+        },
+        notchedOutline: {
+          // borderRadius: `${appliedTheme?.customization?.borderRadius}px`,
+        },
+      },
     },
+
     MuiTextField: {
       styleOverrides: {
         root: {

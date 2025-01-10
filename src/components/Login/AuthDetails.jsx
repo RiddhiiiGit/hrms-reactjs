@@ -33,7 +33,7 @@ const AuthDetails = ({ ...others }) => {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [showPassword, setShowPassword] = useState(false);
-  const [subdomain, setSubdomain] = useState(false);
+
   const handleClickShowPassword = () => {
     setShowPassword(!showPassword);
   };
@@ -49,6 +49,7 @@ const AuthDetails = ({ ...others }) => {
     const storedEmail = localStorage.getItem("email");
     setEmail(storedEmail || "");
   }, []);
+
   return (
     <>
       <Grid2 container direction="column" justifyContent="center" spacing={2}>
@@ -74,18 +75,20 @@ const AuthDetails = ({ ...others }) => {
           subdomain: "",
           submit: null,
         }}
-        validationSchema={Yup.object().shape({
-          email: Yup.string()
-            .email("Must be a valid email")
-            .max(255)
-            .required("Email is required"),
-          password: Yup.string().max(255).required("Password is required"),
-          //   subdomain: Yup.string().required("Subdomain is required"),
-        })}
+        // validationSchema={Yup.object().shape({
+        //   email: Yup.string()
+        //     .email("Must be a valid email")
+        //     .max(255)
+        //     .required("Email is required"),
+        //   password: Yup.string().max(255).required("Password is required"),
+        //   subdomain: Yup.string().required("Subdomain is required"),
+        // })}
         onSubmit={(values, { setErrors, setStatus, setSubmitting }) => {
           try {
             login();
-            navigate("/dashboard");
+            setTimeout(() => {
+              navigate("/dashboard");
+            }, 100);
           } catch (err) {
             console.error(err);
           }
@@ -111,12 +114,11 @@ const AuthDetails = ({ ...others }) => {
               </InputLabel>
               <OutlinedInput
                 id="outlined-adornment-subdomain-login"
-                type={showPassword ? "text" : "password"}
                 value={values.subdomain}
                 name="subdomain"
                 onBlur={handleBlur}
                 onChange={handleChange}
-                label="Password"
+                label="Subdomain"
               />
               {touched.subdomain && errors.subdomain && (
                 <FormHelperText
@@ -143,7 +145,7 @@ const AuthDetails = ({ ...others }) => {
                 onBlur={handleBlur}
                 onChange={handleChange}
                 label="Email Address"
-                inputProps={{}}
+                inputProps={{ autoComplete: "email" }}
               />
               {touched.email && errors.email && (
                 <FormHelperText
@@ -166,6 +168,7 @@ const AuthDetails = ({ ...others }) => {
               <OutlinedInput
                 id="outlined-adornment-password-login"
                 type={showPassword ? "text" : "password"}
+                // type={showPassword ? "text" : "password"}
                 value={values.password}
                 name="password"
                 onBlur={handleBlur}
@@ -183,8 +186,8 @@ const AuthDetails = ({ ...others }) => {
                     </IconButton>
                   </InputAdornment>
                 }
+                inputProps={{ autoComplete: "current-password" }}
                 label="Password"
-                inputProps={{}}
               />
               {touched.password && errors.password && (
                 <FormHelperText
@@ -217,7 +220,9 @@ const AuthDetails = ({ ...others }) => {
               </Box>
             )}
 
-            <Box sx={{ mt: 2 }}>
+            <Box
+              sx={{ mt: 2, display: "flex", flexDirection: "column", gap: 1 }}
+            >
               <AnimateButton>
                 <Button
                   disableElevation
@@ -237,9 +242,10 @@ const AuthDetails = ({ ...others }) => {
                   disabled={isSubmitting}
                   fullWidth
                   size="large"
-                  type="submit"
+                  type="button"
                   variant="contained"
                   color="secondary"
+                  onClick={() => handleSignUpClick(values)} 
                 >
                   Sign Up
                 </Button>
