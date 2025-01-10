@@ -34,10 +34,6 @@ const MainCard = forwardRef(
     return (
       <Card
         sx={{
-          width: "100%",
-          height: "60vh",
-          borderRadius: "7px",
-          marginTop: "15px",
           // border: border ? "1px solid" : "none",
           boxShadow: 2,
           ":hover": {

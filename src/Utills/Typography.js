@@ -57,5 +57,27 @@ const themeTypography = (appliedTheme) => ({
     lineHeight: "1.5em",
     color: appliedTheme.darkTextPrimary,
   },
+
+  customInput: {
+    marginTop: 1,
+    marginBottom: 1,
+    "& > label": {
+      top: 23,
+      left: 0,
+      color: appliedTheme.palette.text.gray500,
+      '&[data-shrink="false"]': {
+        top: 5,
+      },
+    },
+    "& > div > input": {
+      padding: "30.5px 14px 11.5px !important",
+    },
+    "& legend": {
+      display: "none",
+    },
+    "& fieldset": {
+      top: 0,
+    },
+  },
 });
 export default themeTypography;

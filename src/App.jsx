@@ -8,7 +8,7 @@ import {
 } from "@mui/material";
 import { useSelector } from "react-redux";
 import themeConfig from "./Utills/theme";
-import AuthGuard from "./components/authGard/AuthGard";
+import AuthGuard from "./components/authGuard/AuthGuard";
 import { AuthProvider } from "./contexts/AuthContext";
 const LoginPage = lazy(() => import("./components/Login/LoginPage"));
 const SignUp = lazy(() => import("./components/Login/SignUp"));
@@ -63,9 +63,9 @@ function App() {
               <Route
                 path="/dashboard"
                 element={
-                  <AuthGuard>
-                    <MainLayout />
-                  </AuthGuard>
+                  <MainLayout />
+                  // <AuthGuard>
+                  // </AuthGuard>
                 }
               >
                 <Route path="home" element={<Home />} />

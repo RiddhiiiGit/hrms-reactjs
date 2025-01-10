@@ -5,12 +5,6 @@ const AuthContext = createContext();
 const AuthProvider = ({ children }) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-  useEffect(() => {
-    const storedLoginStatus = localStorage.getItem("isLoggedIn") === "true";
-    console.log(storedLoginStatus);
-    setIsLoggedIn(storedLoginStatus);
-  }, []);
-
   const login = () => {
     localStorage.setItem("isLoggedIn", "true");
     setIsLoggedIn(true);
