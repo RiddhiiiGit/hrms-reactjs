@@ -17,6 +17,9 @@ const MainLayout = lazy(() => import("./components/MainLayout/MainLayout"));
 const AddTenantDetails = lazy(() =>
   import("./components/Home/TenantDetails/AddTenantDetails")
 );
+const OrganizationList = lazy(() =>
+  import("./components/Organization/OrganizationsList")
+);
 
 function App() {
   const { mode } = useSelector((state) => state.theme);
@@ -57,6 +60,10 @@ function App() {
             <Route path="/tenantDetails" element={<AddTenantDetails />} />
             <Route path="/dashboard" element={<MainLayout />}>
               <Route path="home" element={<Home />} />
+              <Route
+                path="organizationDetails"
+                element={<OrganizationList />}
+              />
             </Route>
           </Routes>
         </Suspense>

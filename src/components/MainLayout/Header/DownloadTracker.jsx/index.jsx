@@ -17,7 +17,7 @@ import {
 } from "@mui/material";
 
 import { useState } from "react";
-import MainCard from "../../../ui-components/MainCard/MainCard";
+// import MainCard from "../../../ui-components/MainCard/MainCard";
 import Transitions from "../../../ui-components/Extended/Transitions";
 import {
   IconBrandApple,

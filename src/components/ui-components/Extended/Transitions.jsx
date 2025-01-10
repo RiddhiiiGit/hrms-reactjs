@@ -1,4 +1,4 @@
-import PropTypes from "prop-types";
+
 import { forwardRef } from "react";
 
 // material-ui
@@ -6,7 +6,9 @@ import { Collapse, Fade, Box, Grow, Slide, Zoom } from "@mui/material";
 
 // ==============================|| TRANSITIONS ||============================== //
 
+// eslint-disable-next-line react/display-name
 const Transitions = forwardRef(
+  // eslint-disable-next-line react/prop-types
   ({ children, position, type, direction, ...others }, ref) => {
     let positionSX = {
       transformOrigin: "0 0 0",

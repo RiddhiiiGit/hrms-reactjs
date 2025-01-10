@@ -1,4 +1,5 @@
-import React from "react";
+// import React from "react";
+import OrganizationsList from "./AddOrganizationDetails";
 import { Box, Typography } from "@mui/material";
 
 const index = () => {
@@ -18,9 +19,9 @@ const index = () => {
           fontSize: "36px",
         }}
       >
-        Dashboard: Comming Soon..
+       Dashboard: Comming Soon..
       </Typography>
-      {/* <AddTenantDetails /> */}
+      {/* <OrganizationsList/> */}
     </Box>
   );
 };

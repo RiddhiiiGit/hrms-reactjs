@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { forwardRef } from "react";
 
 // material-ui
@@ -10,10 +11,12 @@ import {
   Typography,
 } from "@mui/material";
 
+// eslint-disable-next-line react/display-name
 const MainCard = forwardRef(
   (
     {
       border = true,
+      // eslint-disable-next-line no-unused-vars
       boxShadow,
       children,
       content = true,
@@ -24,6 +27,7 @@ const MainCard = forwardRef(
       darkTitle,
       secondary,
       avatar,
+      // eslint-disable-next-line no-unused-vars
       shadow,
       sx = {},
       title,

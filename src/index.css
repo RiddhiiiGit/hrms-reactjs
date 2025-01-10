@@ -1,6 +1,10 @@
+/* *{
+  margin: 0;
+} */
 body {
   margin: 0;
   place-items: center;
+  background-color: #eceff1;
   /* min-width: 320px;
   min-height: 100vh; */
 }
